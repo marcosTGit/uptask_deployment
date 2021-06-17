@@ -1,0 +1,11 @@
+aside.contenedor-proyectos 
+    .panel.crear-proyecto 
+        a(href="/nuevo-proyecto" class="boton") Proyecto
+            span +
+    .panel.lista-proyectos
+        h2 proyectos 
+        ul#proyecto.proyectos
+            if (proyectos)
+                each proyecto in proyectos
+                    li 
+                        a(href=`/proyecto/${proyecto.url}`)=proyecto.nombre 

@@ -1,0 +1,15 @@
+extends template
+
+include mixins/amProyecto
+block contenido
+    .contenido-principal 
+        h1 #{titlepage}
+        //h1 hola mundo #{titlepage}
+        //a(href="/") ir a index
+        if errores 
+            each error in errores 
+                .alerta.error= error.texto
+        +amProyecto(proyecto)
+
+            
+

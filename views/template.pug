@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+    head
+        include header
+    body
+        include ./headers
+        main.contenedor
+            include ./menuizquierdo
+            block contenido
+            //pre= vardump(proyectos)
+        script(src="/dist/blundle.js")

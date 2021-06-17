@@ -1,0 +1,22 @@
+html
+    head
+        include header
+    body.login 
+        .contenedor-formulario 
+            h1 Restablcer
+
+            if error
+                p.alerta.error= error
+            p Agrega tu e-mail para reestablecer la contraseña
+            form.caja-login(action="/reestablecer" method="POST")
+                .campo
+                    label(for="mail") Mail: 
+                    input(type="text" id="mail" name="mail" placeholder="mail" value= mail required)     
+                .campo.enviar
+                    input.boton(type="submit" value="reestablcer contraseña" class="boton")
+                .campo
+                    a(href="/crear-cuenta") Registrarme
+                    a(href="/reestablecer") olvidaste tu contraseña?
+        script(src="/dist/blundle.js")
+            
+

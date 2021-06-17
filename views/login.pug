@@ -1,0 +1,26 @@
+html
+    head
+        include header
+    body.login 
+        .contenedor-formulario 
+            h1 Iniciar sesion 
+
+            if error
+                p.alerta.error= error
+
+            form#formulario.caja.caja-login(action="/iniciar-sesion" method="POST")
+                .campo
+                    label(for="mail") Mail: 
+                    input(type="text" id="mail" name="mail" placeholder="mail" value= mail required)     
+                .campo
+                    label(for="password") password: 
+                    input(type="password" id="password" name="password" placeholder="password" value= password required) 
+                .campo.enviar
+                    input.boton(type="submit" value="iniciar" class="boton")
+                .campo
+                    a(href="/crear-cuenta") Registrarme
+                .campo
+                    a(href="/reestablecer") olvidaste tu contraseña?
+        script(src="/dist/blundle.js")
+            
+
