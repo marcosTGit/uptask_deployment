@@ -3,7 +3,7 @@ html
         include header
     body.login 
         .contenedor-formulario 
-            h1 Restablcer
+            h1 Restablecer
             include ./errorsForm
             p Agrega tu e-mail para reestablecer la contraseña
             form.caja-login(action="/reestablecer" method="POST")
@@ -16,6 +16,5 @@ html
                     a(href="/crear-cuenta") Registrarme
                 .campo
                     a(href="/reestablecer") olvidaste tu contraseña?
-        script(src="/dist/blundle.js")
             
 
