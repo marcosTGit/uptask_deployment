@@ -4,10 +4,8 @@ html
     body.login 
         .contenedor-formulario 
             h1 Iniciar sesion 
-
-            if error
-                p.alerta.error= error
-
+            include ./errorsForm
+                                
             form#formulario.caja.caja-login(action="/iniciar-sesion" method="POST")
                 .campo
                     label(for="mail") Mail: 
@@ -21,6 +19,5 @@ html
                     a(href="/crear-cuenta") Registrarme
                 .campo
                     a(href="/reestablecer") olvidaste tu contraseña?
-        script(src="/dist/blundle.js")
             
 

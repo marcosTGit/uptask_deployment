@@ -71,17 +71,11 @@ app.use((req, res, next)=>{
 
 
 
-
-
-
-
 app.use('/',routes());
 //app.listen(3500);
 
 const host=process.env.HOST || '0.0.0.0';
-const port=process.env.PORT || 3000;
-
+const port=process.env.PORT || 3500;
 app.listen(port, host,()=>{
     console.log("SERVIDRO EN LINEA");
 });
-

@@ -17,20 +17,20 @@ require('dotenv').config({path: './var.env'})
 
 //const db = new Sequelize('uptask', 'root', '', {
 const db = new Sequelize(
-    process.env.DB_DATABASE, 
-    process.env.DB_USER, 
-    process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
+    process.env.DB_DATABASE, //    'uptask', 
+    process.env.DB_USER, // 'root', 
+    process.env.DB_PASSWORD, // '', 
+    {
+    host: process.env.DB_HOST, // host: 'localhost',
     dialect: 'mysql', /*| 'mariadb' | 'postgres' | 'mssql'*/
     port:process.env.BD_PORT,
-    define:{
-        timestamps:false
-    },
+    define:{timestamps:false},
     pool:{
         max:5,
         min:0,
         acquire:30000,
         idle:10000
+        }
     }
-});
+);
 module.exports =db;

@@ -4,11 +4,11 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const crypto =require('crypto'); 
 const bcryptjs =require('bcryptjs'); //habilitamos bcrypt para encritacion de claves
+const enviarEmail = require('../handlers/email')
 
 
-
-//0000000000000000000000000000000000000000000
-//0000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
 
 exports.Autenticar = passport.authenticate('local',{
     successRedirect : '/',
@@ -16,6 +16,9 @@ exports.Autenticar = passport.authenticate('local',{
     failureFlash: true,
     badRequestMessage: 'Ambos campos son obligatorios'
 });
+
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
 
 exports.SessionControl=(req, res, next)=>{
     if (req.isAuthenticated()) {
@@ -25,12 +28,18 @@ exports.SessionControl=(req, res, next)=>{
     return res.redirect('/iniciar-sesion');
 };
 
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
+
 exports.Logout=(req, res, next)=>{
     req.session.destroy(()=>{
         res.redirect('/');
     });
     
 };
+
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
 
 exports.GenerarToken= async(req, res)=>{
     // verificamos si el usuario existe
@@ -46,16 +55,31 @@ exports.GenerarToken= async(req, res)=>{
     usuario.expiracion = Date.now()+3600000;
     const resetUrl= `${req.headers.host}/reestablecer/${usuario.token}`
     await usuario.save();
-    req.flash('error','revisa tu casilla de correo')
-    res.redirect('/reestablecer');
-    //console.log(resetUrl);
+
+    // enviamos el email con el enlace
+    await enviarEmail.enviar({
+        usuario,
+        subject:'Password Reset',
+        url: resetUrl,
+        archivo:'resetPass.pug'
+    });
+
+    req.flash('correcto','Exito.! revisa tu casilla de correo')
+    res.redirect("/iniciar-sesion");
+    
     
 }
+
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
 
 exports.ValidarToken= (req, res)=>{
     // res.send(req.params.token);
     res.render('resetPassword');
 }
+
+//000000000000000000000000000000000000000000000000000000000000
+//000000000000000000000000000000000000000000000000000000000000
 
 exports.ActualizarPassword= async (req, res)=>{
     //res.send(req.params.token);
@@ -68,22 +92,17 @@ exports.ActualizarPassword= async (req, res)=>{
                 expiracion:{[Op.gt] : Date.now()}
             }
         });
-
+        
         usuario.password=await bcryptjs.hash(req.body.password,8);
         usuario.token=null;
         usuario.expiracion=null;
         usuario.save(); // guardamos los cambios 
+        req.flash('correcto','Exito.! password actualizada')
         res.redirect("/iniciar-sesion");
         
     } catch (error) {
         
-        req.flash('erro','URL No valido intente nuevamente')
+        req.flash('error','URL No valido intente nuevamente')
         res.redirect("/reestablecer");
     }
-    //verificamos is existe el usuario 
-
-    // encriptamos el pass
-
-
-    // req.flash('error','Tu password se ha modificado correctamente');
 }

@@ -13,10 +13,8 @@ passport.use(
         },
         async(mail, password, done)=>{
             try {
-                const usuario = await Usuarios.findOne({where:{mail}});
-                //console.log("en passport");
+                const usuario = await Usuarios.findOne({where:{mail,activo:1}});
                 const resultado = usuario.verificarPassword(password);
-                //console.log('el rsultgado: '+resultado);
 
                 if (!usuario.verificarPassword(password)) {
                     // console.log("password incorrecto");
@@ -30,7 +28,7 @@ passport.use(
                 // no existe el usuario
                 // detrorna don con tre sparametros  
                 return done(null, false,{
-                    message:'Esta cuenta no existe'
+                    message:'La cuenta no existe'
                 });
                 
             }

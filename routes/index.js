@@ -27,10 +27,11 @@ module.exports = ()=>{
     router.post('/reestablecer', autenticarController.GenerarToken);// procesa formulario y genera token
     router.get('/reestablecer/:token', autenticarController.ValidarToken);// recibe el url y valida  los datos
     router.post('/reestablecer/:token', autenticarController.ActualizarPassword);// recibe los datos y nuevamente verifica los datos y actualiza el ppass
-
+    
     router.get('/crear-cuenta', UsuarioController.Registro);
+    router.post('/crear-cuenta', UsuarioController.NuevoUsuario); // registramos un nuevo usuario 
+    router.get('/activar-cuenta/:correo', UsuarioController.ActivarCuenta); // registramos un nuevo usuario 
 
-    router.post('/crear-cuenta', UsuarioController.NuevoUsuario); // autenticamos el usuario 
 
 
 // PROYECTOS

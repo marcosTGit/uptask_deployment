@@ -1,0 +1,6 @@
+if locals.mensaje 
+    .alertas 
+        each categoria in Object.keys(locals.mensaje)
+            each error in mensaje[categoria]
+                .alerta(class=`${categoria}`)
+                    p= error 
