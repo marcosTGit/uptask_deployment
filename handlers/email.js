@@ -1,7 +1,7 @@
 const nodemailer= require ('nodemailer');
 const pug= require ('pug');
 const juice= require ('juice');
-const htmlToText= require ('html-To-Text');
+const htmlToText= require ('html-to-text');
 const util= require ('util');
 const emailConfig= require ('../config/email');
 
