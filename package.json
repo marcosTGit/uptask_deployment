@@ -40,7 +40,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-validator": "^6.11.1",
-    "html-to-text": "^8.0.0",
+    "html-to-text": "^8.2.1",
     "juice": "^8.0.0",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.1",

@@ -10,19 +10,25 @@ const passport = require('./config/passport');
 // variable de entorno
 require('dotenv').config({path: 'config/var.env'})
 
+console.log("##########################################################")
+console.log("##########################################################")
+console.log("################      SOPORTECAT       ###################")
+console.log("##########################################################")
+console.log("##########################################################")
+console.log("INICIALIZANDO SERVIDOR...")
 
 // conectando a bases de datos
 const db= require('./config/db');
 const { nextTick } = require('process');
 db.authenticate()
-.then(()=>console.log('conectado al servidor'))
+.then(()=>console.log('CONEXION A LA BASE DE DATOS..... OK'))
 .catch((error)=>console.log(error))
 // importando modelo
 require('./models/Proyectos');
 require('./models/Tareas');
 require('./models/Usuarios');
 db.sync()
-.then(()=>console.log('los mdelos se importaron Exito'))
+.then(()=>console.log('IMPORTANTO MODELOS......OK'))
 .catch((error)=>console.log(error))
 
 
@@ -80,5 +86,5 @@ app.use('/',routes());
 require('dotenv').config({path: 'var.env'})
 
     app.listen(process.env.PORT || 3000, ()=>{
-        console.log("SERVIDRO EN LINEA");
+        console.log("=========  SERVIDOR EN LINEA  ===========");
     });
