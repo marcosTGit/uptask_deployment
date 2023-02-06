@@ -11,74 +11,74 @@ const passport = require('./config/passport');
 require('dotenv').config({path: 'config/var.env'})
 
 
-// // conectando a bases de datos
-// const db= require('./config/db');
-// const { nextTick } = require('process');
-// db.authenticate()
-// .then(()=>console.log('conectado al servidor'))
-// .catch((error)=>console.log(error))
-// // importando modelo
-// require('./models/Proyectos');
-// require('./models/Tareas');
-// require('./models/Usuarios');
-// db.sync()
-// .then(()=>console.log('los mdelos se importaron Exito'))
-// .catch((error)=>console.log(error))
+// conectando a bases de datos
+const db= require('./config/db');
+const { nextTick } = require('process');
+db.authenticate()
+.then(()=>console.log('conectado al servidor'))
+.catch((error)=>console.log(error))
+// importando modelo
+require('./models/Proyectos');
+require('./models/Tareas');
+require('./models/Usuarios');
+db.sync()
+.then(()=>console.log('los mdelos se importaron Exito'))
+.catch((error)=>console.log(error))
 
 
 // //crear una app
 const app = express();
 
 
-// //habilitamos el bodyparser
-// app.use(express.urlencoded({ extended: false }));
+//habilitamos el bodyparser
+app.use(express.urlencoded({ extended: false }));
 
-// //cargar public
-// app.use(express.static('public'));
+//cargar public
+app.use(express.static('public'));
 
-// // habilitar pug
-// app.set('view engine','pug');
+// habilitar pug
+app.set('view engine','pug');
 
-// // configuramos carpetas views
-// app.set('views', path.join(__dirname,'./views'));
+// configuramos carpetas views
+app.set('views', path.join(__dirname,'./views'));
 
-// //flash messages
-// app.use(flash());
+//flash messages
+app.use(flash());
 
-// /// llamamosa cookie parser ==> 1
-// app.use(cookieParser());
-// //app.use(bodyParser.json())
+/// llamamosa cookie parser ==> 1
+app.use(cookieParser());
+//app.use(bodyParser.json())
 
-// // seteamos las sesiones ==> 2
-// app.use(session({
-    // secret: 'supersecreto',
-    // resave: false,
-    // saveUninitialized: false
+// seteamos las sesiones ==> 2
+app.use(session({
+    secret: 'supersecreto',
+    resave: false,
+    saveUninitialized: false
     
-// }));
-// app.use(passport.initialize());// ==> 3 
-// app.use(passport.session());  // ==> 4
+}));
+app.use(passport.initialize());// ==> 3 
+app.use(passport.session());  // ==> 4
 
-// //habilitar funciones del helpers
-// app.use((req, res, next)=>{
-    // res.locals.vardump = helpers.vardump;
-    // res.locals.mensaje = req.flash();
-    // res.locals.usuario = {...req.user} || null;
-    // //console.log(res.locals.usuario);
-    // next();
+//habilitar funciones del helpers
+app.use((req, res, next)=>{
+    res.locals.vardump = helpers.vardump;
+    res.locals.mensaje = req.flash();
+    res.locals.usuario = {...req.user} || null;
+    //console.log(res.locals.usuario);
+    next();
+});
+
+
+
+
+app.use('/',routes());
+
+// app.get('/',(req,res)=>{
+//     res.send('En linea...');
 // });
 
+require('dotenv').config({path: 'var.env'})
 
-
-
-// app.use('/',routes());
-
-app.get('/',(req,res)=>{
-    res.send('En linea...');
-});
-
-const host=process.env.HOST || '0.0.0.0';
-const port=process.env.PORT || 3000;
-app.listen(port, host,()=>{
-    console.log("SERVIDRO EN LINEA");
-});
+    app.listen(process.env.PORT || 3000, ()=>{
+        console.log("SERVIDRO EN LINEA");
+    });
